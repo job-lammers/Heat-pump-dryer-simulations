@@ -10,12 +10,12 @@ from CoolProp import AbstractState as AS
 from simple_cascade_model.utils import EntropyProduction
 from simple_cascade_model.core import UpperCycle, LowerCycle
 from simple_cascade_model.cyclestate import CycleState
-from simple_cascade_model.plots import plot_Ts_diagram_with_dome, plot_TQ_diagram_all, plot_Ts_diagram_from_entropy_temperature
+from simple_cascade_model.plots import plot_Ts_diagram_with_dome, plot_TQ_diagram_all
 
 class SimpleCascade:
     def __init__(self, mixture_low, mole_fractions_low, mixture_high,
                  mole_fractions_high, T_PinchInternal, T_PinchAir, dryer, 
-                 etac, T_start_point, IHX_upper, IHX_lower, plot, PrintData,
+                 etac, T_start_point, IHX_upper, IHX_lower, plot,
                  HTF, ExtendedCalculations):
         self.mixture_low = mixture_low
         self.mole_fractions_low = mole_fractions_low
@@ -29,7 +29,6 @@ class SimpleCascade:
         self.IHX_upper = IHX_upper
         self.IHX_lower = IHX_lower
         self.plot = plot
-        self.PrintData = PrintData
         self.HTF = HTF
         self.ExtendedCalculations = ExtendedCalculations
 
@@ -41,13 +40,13 @@ class SimpleCascade:
         RefLow  = AS("REFPROP", '&'.join(self.mixture_low));  RefLow.set_mole_fractions(self.mole_fractions_low)
         cycle = CycleState()
         
-        self.IHX_upper = UpperCycle(RefHigh, cycle, self.dryer, self.T_PinchInternal, self.T_PinchAir, self.etac, self.IHX_upper, self.T_start_point, self.PrintData, self.HTF, EntropyUpper=False)
+        self.IHX_upper = UpperCycle(RefHigh, cycle, self.dryer, self.T_PinchInternal, self.T_PinchAir, self.etac, self.IHX_upper, self.T_start_point, self.HTF)
         
         # Plot Ts diagram of the upper cycle
         if self.plot:
             plot_Ts_diagram_with_dome(cycle,RefHigh,"Upper", self.IHX_upper, self.IHX_upper)
   
-        self.IHX_lower = LowerCycle(RefLow, cycle, self.dryer, self.T_PinchInternal, self.T_PinchAir, self.etac, self.IHX_upper, self.IHX_lower, self.PrintData, self.HTF)
+        self.IHX_lower = LowerCycle(RefLow, cycle, self.dryer, self.T_PinchInternal, self.T_PinchAir, self.etac, self.IHX_upper, self.IHX_lower, self.HTF)
         
         # Plot Ts and TQ diagrams
         if self.plot:
@@ -71,7 +70,7 @@ class SimpleCascade:
         self.COP = Q_out / (self.W_upper + self.W_lower)
         
         # Calculate entropy production
-        self.sigma_total, self.entropies = EntropyProduction(cycle, self.dryer, self.IHX_upper, self.IHX_lower, self.HTF, print_entropy_production=False)
+        self.sigma_total, self.entropies = EntropyProduction(cycle, self.dryer, self.IHX_upper, self.IHX_lower, self.HTF, print_entropy_production=True)
         
         self.cycle = cycle
         self.PR_upper = cycle.high["P3"]/cycle.high["P2"]
@@ -98,11 +97,11 @@ class SimpleCascade:
             
             self.second_COP = self.COP / self.COP_Lorenz
             
-            self.second_Ex = 1 - ((T_EvAvg) * self.sigma_total) / (self.W_upper + self.W_lower)
-            
             self.COP_check = self.COP_Lorenz / (1 + (T_EvAvg * T_CdAvg) / (T_CdAvg - T_EvAvg) * (self.sigma_total / Q_out) )
             
             self.COP_error = abs(self.COP-self.COP_check)/self.COP 
-        if self.PrintData:
-            print(f'The COP of this cycle is {self.COP:.2f} and the total entropy production is {self.sigma_total:.2f}')
+            
+            self.VdotUpper = cycle.high["m_dot"] / cycle.high["rho2"]
+            
+            self.VdotLower = cycle.low["m_dot"] / cycle.low["rho7"]
             
