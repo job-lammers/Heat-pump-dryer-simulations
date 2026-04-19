@@ -14,7 +14,7 @@ Three thermodynamic models are provided:
 
 | Model | Entry point | Description |
 |---|---|---|
-| **Single-stage heat pump** | Single stage heat pump/`Optimiser.py` | Single-stage vapour-compression heat pump coupled to a drying loop. Optimises refrigerant cycle state for maximum COP. |
+| **Single-stage heat pump** | Single stage heat pump/`Optimiser.py` | Single-stage vapour-compression heat pump coupled to a drying loop. Optimises refrigerant cycle states for maximum COP. |
 | **Cascade heat pump** | Cascade heat pump/`Optimiser.py` | Two-stage vapour-compression cascade heat pump coupled to a drying loop. Optimises refrigerant cycle states for maximum COP. |
 | **Centrifugal compressor** | Compressor simulation`CompressorSolver.py` | 1-D loss-model sizing tool for multi-stage centrifugal compressors. Sweeps specific speed to find the optimal design point. |
 
