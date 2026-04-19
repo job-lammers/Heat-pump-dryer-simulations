@@ -121,7 +121,7 @@ The model solves a single-stage vapour-compression heat pump in which:
 
 - heat is rejected to the dryer air stream (via a condenser
   or optional heat transfer fluid loop);
-- heat is absorbed from the exhaust dryer air stream (via a
+- heat is absorbed from the exhaust dryer air stream (via an
   evaporator or optional heat transfer fluid loop);
 
 The cycle is solved iteratively to satisfy all pinch-point constraints.
@@ -135,7 +135,7 @@ The model solves a two-stage vapour-compression cascade in which:
 
 - the **upper cycle** rejects heat to the dryer air stream (via a condenser
   or optional heat transfer fluid loop);
-- the **lower cycle** absorbs heat from the exhaust dryer air stream (via a
+- the **lower cycle** absorbs heat from the exhaust dryer air stream (via an
   evaporator or optional heat transfer fluid loop);
 - the two cycles are thermally coupled through a shared heat exchanger.
 
