@@ -43,17 +43,17 @@ Three thermodynamic models are provided:
 |   ├── CompressorSolver.py           # Entry point – compressor sizing sweep
 |   └── Compressor.py                 # Single-stage centrifugal compressor model
 └── Single stage heat pump/
-|   ├── Optimiser.py                  # Entry point – Single-stage heat pump simulation
-|   ├── DryingIntegrated.py           # Psychrometric dryer model + Mollier diagram
-|   ├── SimpleSingleStage.py          # Top-level single-stage heat pump class
-|   └── single_stage_model/           # Package: cycle solver internals
-│       ├── __init__.py
-│       ├── constants.py              # Physical constants and solver settings
-│       ├── core.py                   # UpperCycle and LowerCycle solvers
-│       ├── cyclestate.py             # CycleState data container
-│       ├── constraints.py            # Pinch-point constraint functions
-│       ├── utils.py                  # Air temperature profiles, entropy production
-│       └── plots.py                  # T-s and T-Q diagram utilities
+    ├── Optimiser.py                  # Entry point – Single-stage heat pump simulation
+    ├── DryingIntegrated.py           # Psychrometric dryer model + Mollier diagram
+    ├── SimpleSingleStage.py          # Top-level single-stage heat pump class
+    └── single_stage_model/           # Package: cycle solver internals
+        ├── __init__.py
+        ├── constants.py              # Physical constants and solver settings
+        ├── core.py                   # UpperCycle and LowerCycle solvers
+        ├── cyclestate.py             # CycleState data container
+        ├── constraints.py            # Pinch-point constraint functions
+        ├── utils.py                  # Air temperature profiles, entropy production
+        └── plots.py                  # T-s and T-Q diagram utilities
 ```
 
 ---
