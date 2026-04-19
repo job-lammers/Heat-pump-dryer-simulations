@@ -15,8 +15,8 @@ Three thermodynamic models are provided:
 | Model | Entry point | Description |
 |---|---|---|
 | **Single-stage heat pump** | `Single stage heat pump/Optimiser.py` | Single-stage vapour-compression heat pump coupled to a drying loop. Optimises refrigerant cycle states for maximum COP. |
-| **Cascade heat pump** | 'Cascade heat pump/Optimiser.py` | Two-stage vapour-compression cascade heat pump coupled to a drying loop. Optimises refrigerant cycle states for maximum COP. |
-| **Centrifugal compressor** | 'Compressor simulation/`CompressorSolver.py` | 1-D loss-model sizing tool for multi-stage centrifugal compressors. Sweeps specific speed to find the optimal design point. |
+| **Cascade heat pump** | `Cascade heat pump/Optimiser.py` | Two-stage vapour-compression cascade heat pump coupled to a drying loop. Optimises refrigerant cycle states for maximum COP. |
+| **Centrifugal compressor** | `Compressor simulation/CompressorSolver.py` | 1-D loss-model sizing tool for multi-stage centrifugal compressors. Sweeps specific speed to find the optimal design point. |
 
 ---
 
@@ -83,6 +83,15 @@ pip install numpy scipy matplotlib CoolProp
 
 ## Running the models
 
+### Single-stage heat pump
+
+```bash
+python Optimiser.py
+```
+
+All user-adjustable inputs (fluid mixture, boundary conditions, pinch
+temperatures, IHX flags) are defined at the top of `Optimiser.py`.
+
 ### Cascade heat pump
 
 ```bash
@@ -106,13 +115,28 @@ speed sweep range) are defined in the configuration section of
 
 ## Model descriptions
 
-### Cascade heat pump (`simple_cascade_model/`)
+### Single-stage heat pump (`Single stage heat pump/`)
+
+The model solves a single-stage vapour-compression heat pump in which:
+
+- heat is rejected to the dryer air stream (via a condenser
+  or optional heat transfer fluid loop);
+- heat is absorbed from the exhaust dryer air stream (via a
+  evaporator or optional heat transfer fluid loop);
+
+The cycle is solved iteratively to satisfy all pinch-point constraints.
+An optional internal heat exchanger (IHX) can be enabled.
+Performance is evaluated using first- and second-law metrics (COP, Lorenz COP,
+entropy production per component).
+
+### Cascade heat pump (`Cascade heat pump/`)
 
 The model solves a two-stage vapour-compression cascade in which:
 
 - the **upper cycle** rejects heat to the dryer air stream (via a condenser
   or optional heat transfer fluid loop);
-- the **lower cycle** absorbs heat from the exhaust dryer air stream;
+- the **lower cycle** absorbs heat from the exhaust dryer air stream (via a
+  evaporator or optional heat transfer fluid loop);
 - the two cycles are thermally coupled through a shared heat exchanger.
 
 Each cycle is solved iteratively to satisfy all pinch-point constraints.
@@ -120,7 +144,7 @@ Optional internal heat exchangers (IHX) can be enabled for both stages.
 Performance is evaluated using first- and second-law metrics (COP, Lorenz COP,
 entropy production per component).
 
-### Centrifugal compressor (`Compressor.py`)
+### Centrifugal compressor (`Compressor simulation/`)
 
 A one-dimensional stage model based on seven loss correlations (disk friction,
 tip clearance, skin friction, blade loading, recirculation, jet-wake mixing,
@@ -132,7 +156,7 @@ geometry, and velocity triangles.
 
 ## Outputs
 
-The cascade model prints:
+The single-stage and cascade models print:
 - COP and second-law efficiency
 - Per-component entropy production
 - State points (T, p) for each cycle
@@ -147,7 +171,7 @@ Optionally, the following plots are generated:
 
 ## Author
 
-J.H. Lam  
+J.H. Lammers  
 _Affiliation and contact details to be added upon publication._
 
 ---
