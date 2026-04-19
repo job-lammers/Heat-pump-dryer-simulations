@@ -1,7 +1,7 @@
-# Cascade Heat Pump Model for Industrial Drying
+# Single-stage and Cascade Heat Pump Model for Industrial Drying
 
 This repository contains the simulation code used in a research paper on
-cascade heat pump systems integrated with industrial drying processes.  
+single-stage and cascade heat pump systems integrated with industrial drying processes.  
 The code is made publicly available to support reproducibility of the results.
 
 > **Paper**: _currently under review — citation will be added upon publication._
