@@ -42,6 +42,7 @@ Three thermodynamic models are provided:
 ├── Compressor simulation/
 |   ├── CompressorSolver.py           # Entry point – compressor sizing sweep
 |   └── Compressor.py                 # Single-stage centrifugal compressor model
+|
 └── Single stage heat pump/
     ├── Optimiser.py                  # Entry point – Single-stage heat pump simulation
     ├── DryingIntegrated.py           # Psychrometric dryer model + Mollier diagram
