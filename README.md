@@ -10,11 +10,12 @@ The code is made publicly available to support reproducibility of the results.
 
 ## Overview
 
-Two thermodynamic models are provided:
+Three thermodynamic models are provided:
 
 | Model | Entry point | Description |
 |---|---|---|
-| **Cascade heat pump** | `Optimiser.py` | Two-stage vapour-compression cascade coupled to a drying loop. Optimises refrigerant cycle states for maximum COP. |
+| **Single-stage heat pump ** | Single stage heat pump/`Optimiser.py` | Single-stage vapour-compression heat pump coupled to a drying loop. Optimises refrigerant cycle state for maximum COP. |
+| **Cascade heat pump** | Cascade heat pump/`Optimiser.py` | Two-stage vapour-compression cascade heat pump coupled to a drying loop. Optimises refrigerant cycle states for maximum COP. |
 | **Centrifugal compressor** | `CompressorSolver.py` | 1-D loss-model sizing tool for multi-stage centrifugal compressors. Sweeps specific speed to find the optimal design point. |
 
 ---
@@ -25,21 +26,34 @@ Two thermodynamic models are provided:
 .
 ├── README.md
 │
-├── Optimiser.py                  # Entry point – cascade heat pump simulation
-├── DryingIntegrated.py           # Psychrometric dryer model + Mollier diagram
-├── SimpleCascade.py              # Top-level cascade heat pump class
+├── Cascade heat pump/
+|   ├── Optimiser.py                  # Entry point – cascade heat pump simulation
+|   ├── DryingIntegrated.py           # Psychrometric dryer model + Mollier diagram|
+|   ├── SimpleCascade.py              # Top-level cascade heat pump class
+|   └── simple_cascade_model/         # Package: cycle solver internals
+│       ├── __init__.py
+│       ├── constants.py              # Physical constants and solver settings
+│       ├── core.py                   # UpperCycle and LowerCycle solvers
+│       ├── cyclestate.py             # CycleState data container
+│       ├── constraints.py            # Pinch-point constraint functions
+│       ├── utils.py                  # Air temperature profiles, entropy production
+│       └── plots.py                  # T-s and T-Q diagram utilities
 │
-├── simple_cascade_model/         # Package: cycle solver internals
-│   ├── __init__.py
-│   ├── constants.py              # Physical constants and solver settings
-│   ├── core.py                   # UpperCycle and LowerCycle solvers
-│   ├── cyclestate.py             # CycleState data container
-│   ├── constraints.py            # Pinch-point constraint functions
-│   ├── utils.py                  # Air temperature profiles, entropy production
-│   └── plots.py                  # T-s and T-Q diagram utilities
-│
-├── CompressorSolver.py           # Entry point – compressor sizing sweep
-└── Compressor.py                 # Single-stage centrifugal compressor model
+├── Compressor simulation/
+|   ├── CompressorSolver.py           # Entry point – compressor sizing sweep
+|   └── Compressor.py                 # Single-stage centrifugal compressor model
+└── Single stage heat pump/
+|   ├── Optimiser.py                  # Entry point – Single-stage heat pump simulation
+|   ├── DryingIntegrated.py           # Psychrometric dryer model + Mollier diagram
+|   ├── SimpleSingleStage.py          # Top-level single-stage heat pump class
+|   └── single_stage_model/           # Package: cycle solver internals
+│       ├── __init__.py
+│       ├── constants.py              # Physical constants and solver settings
+│       ├── core.py                   # UpperCycle and LowerCycle solvers
+│       ├── cyclestate.py             # CycleState data container
+│       ├── constraints.py            # Pinch-point constraint functions
+│       ├── utils.py                  # Air temperature profiles, entropy production
+│       └── plots.py                  # T-s and T-Q diagram utilities
 ```
 
 ---
