@@ -11,7 +11,7 @@ import DryingIntegrated
 import SimpleCascade as HeatPump
 
 # Plot settings
-fs = 18
+fs = 22
 rcParams.update({"font.size": fs})
 rc("xtick", labelsize=fs)
 rc("ytick", labelsize=fs)
